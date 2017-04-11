@@ -1,0 +1,21 @@
+{
+  "name": "gugglegum/abstract-entity",
+  "description": "Abstract class for entities (models)",
+  "type": "library",
+  "keywords": ["entity", "abstract"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Paul Melekhov",
+      "email": "gugglegum@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "gugglegum\\AbstractEntity\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.0.0"
+  }
+}
