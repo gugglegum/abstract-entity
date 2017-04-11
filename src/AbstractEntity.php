@@ -53,6 +53,21 @@ abstract class AbstractEntity
     }
 
     /**
+     * Returns a list of entity attribute names (used in `AbstractEntity::toArray()`)
+     *
+     * @return string[]
+     */
+    public static function getAttributeNames(): array
+    {
+        $reflectionClass = new \ReflectionClass(static::class);
+        $attributeNames = [];
+        foreach ($reflectionClass->getProperties() as $property) {
+            $attributeNames[] = $property->getName();
+        }
+        return $attributeNames;
+    }
+
+    /**
      * Checks whether some attribute exists
      *
      * @param string $key
@@ -164,11 +179,4 @@ abstract class AbstractEntity
         }
         return $setter;
     }
-
-    /**
-     * Returns list of model's attribute names (used in `AbstractEntity::toArray()`)
-     *
-     * @return string[]
-     */
-    abstract public static function getAttributeNames(): array;
 }

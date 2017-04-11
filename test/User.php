@@ -74,14 +74,4 @@ class User extends AbstractEntity
         $this->disabled = $disabled;
         return $this;
     }
-
-    /**
-     * Returns list of model's attribute names (used in `AbstractEntity::toArray()`)
-     *
-     * @return string[]
-     */
-    public static function getAttributeNames(): array
-    {
-        return array_keys(get_class_vars(__CLASS__));
-    }
 }

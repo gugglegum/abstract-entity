@@ -7,27 +7,10 @@ contains `getGetter()` and `getSetter()` methods to convert an attribute name to
 methods. For every entity class property (which should be private) you need to generate a pair of
 getter and setter. You may use automatic generation of these methods in your IDE (I use the PhpStorm).
 
-Every concrete entity class should have implementation of abstract method `getAttributeNames()` 
-defined in abstract entity which simply returns a list (array) of attributes. This is used in
-the `toArray()` method to iterate attributes. Since attributes of concrete entity are private the base
-class can't get them via `get_class_vars()` or `get_object_vars()`. Actually you don't need to enumerate
-all attributes (properties) manually, you may use `get_class_vars()` method to enumerate all properties
-automatically:
-
-```
-    /**
-     * Returns list of model's attribute names (used in `AbstractEntity::toArray()`)
-     *
-     * @return string[]
-     */
-    public static function getAttributeNames(): array
-    {
-        return array_keys(get_class_vars(__CLASS__));
-    }
-```
-
-This is simplest implementation. You can make this method more complex to add virtual properties or to remove hidden
-properties.
+The abstract entity gets a list of attributes of concrete entity from its properties (using
+`ReflectionClass`). You may redefine this method to add some additional handling. You may add some virtual
+attributes which are not present as class properties or remove some special properties which should not be
+used as attributes.
 
 ## Requirements
 
@@ -114,16 +97,6 @@ class User extends AbstractEntity
     {
         $this->disabled = $disabled;
         return $this;
-    }
-
-    /**
-     * Returns list of model's attribute names (used in `AbstractEntity::toArray()`)
-     *
-     * @return string[]
-     */
-    public static function getAttributeNames(): array
-    {
-        return array_keys(get_class_vars(__CLASS__));
     }
 }
 ```
