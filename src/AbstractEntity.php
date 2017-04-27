@@ -30,7 +30,8 @@ abstract class AbstractEntity
      * Creates new entity instance and initializes it with values from array. Actually shortcut for constructor.
      *
      * @param array $data Associative array with [attribute => value] pairs
-     * @return self
+     * @return static
+     * @throws Exception
      */
     public static function fromArray(array $data): self
     {
