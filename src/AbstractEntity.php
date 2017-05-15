@@ -33,7 +33,7 @@ abstract class AbstractEntity
      * @return static
      * @throws Exception
      */
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data)
     {
         return (new static($data));
     }
