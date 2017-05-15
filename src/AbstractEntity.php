@@ -54,18 +54,40 @@ abstract class AbstractEntity
     }
 
     /**
+     * Returns a list of properties of specified class.
+     *
+     * @param string $className
+     * @return string[]
+     */
+    protected static function getClassProperties(string $className)
+    {
+        $reflectionClass = new \ReflectionClass($className);
+        $attributeNames = [];
+        foreach ($reflectionClass->getProperties() as $property) {
+            $attributeNames[] = $property->getName();
+        }
+        return $attributeNames;
+    }
+
+    /**
      * Returns a list of entity attribute names (used in `AbstractEntity::toArray()`)
      *
      * @return string[]
      */
     public static function getAttributeNames(): array
     {
-        $reflectionClass = new \ReflectionClass(static::class);
-        $attributeNames = [];
-        foreach ($reflectionClass->getProperties() as $property) {
-            $attributeNames[] = $property->getName();
+        static $attributes;
+
+        if ($attributes === null) {
+            $attributes = [];
+            $class = static::class;
+            do {
+                $attributes = array_merge(self::getClassProperties($class), $attributes);
+                $class = get_parent_class($class);
+            } while ($class !== false);
+            $attributes = array_unique($attributes);
         }
-        return $attributeNames;
+        return $attributes;
     }
 
     /**
