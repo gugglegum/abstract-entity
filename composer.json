@@ -17,5 +17,13 @@
   },
   "require": {
     "php": ">=7.0.0"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "gugglegum\\AbstractEntity\\tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "6.3"
   }
 }
