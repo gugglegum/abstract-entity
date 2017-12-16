@@ -134,3 +134,7 @@ $user = User::fromArray([
 var_dump($user->toArray());
 
 ```
+
+If you would like to use your own exception class in your models, the best solution is to define it in the 
+constructor of your models. But note that you should set exception class prior to call `parent::__construct($data)`
+because parent constructor may throw an exceptions.
