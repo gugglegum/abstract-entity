@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace gugglegum\AbstractEntity;
 
+use ReflectionClass;
+use ReflectionException;
+
 /**
  * Base class for entities, provides basic methods for accessing attributes via getters and setters, contains
  * reflection to convert attribute name into getter or setter. Every attribute must have both getter and setter.
@@ -112,14 +115,19 @@ abstract class AbstractEntity
      * @param string $className
      * @return string[]
      */
-    protected static function getClassProperties(string $className)
+    protected static function getClassProperties(string $className): array
     {
-        $reflectionClass = new \ReflectionClass($className);
+        try {
+            $reflectionClass = new ReflectionClass($className);
+        } catch (ReflectionException $e) {
+            return [];
+        }
         $attributeNames = [];
         foreach ($reflectionClass->getProperties() as $property) {
-            if (!$property->isStatic() && $property->getName() !== '__exceptionClass') {
-                $attributeNames[] = $property->getName();
+            if ($property->isStatic() || $property->getName() === '__exceptionClass') {
+                continue;
             }
+            $attributeNames[] = $property->getName();
         }
         return $attributeNames;
     }
@@ -229,14 +237,20 @@ abstract class AbstractEntity
      */
     protected function getGetter(string $attributeName): string
     {
-        if (method_exists($this, ($getter1 = 'get' . ucfirst($attributeName)))) {
-            return $getter1;
-        } elseif (method_exists($this, ($getter2 = 'is' . ucfirst($attributeName)))) {
-            return $getter2;
-        } else {
-            $exceptionClass = $this->__getExceptionClass();
-            throw new $exceptionClass("Can't find getter method {$getter1}() or {$getter2}() for attribute \"{$attributeName}\" in " . get_class($this));
+        $possibleGetterMethods = [];
+        if (method_exists($this, ($possibleGetterMethods[] = 'get' . ucfirst($attributeName)))) {
+            return array_pop($possibleGetterMethods);
         }
+        if (method_exists($this, ($possibleGetterMethods[] = 'is' . ucfirst($attributeName)))) {
+            return array_pop($possibleGetterMethods);
+        }
+        if (preg_match('/^[iI]s[A-Z]/', $attributeName)) {
+            if (method_exists($this, ($possibleGetterMethods[] = $attributeName))) {
+                return array_pop($possibleGetterMethods);
+            }
+        }
+        $exceptionClass = $this->__getExceptionClass();
+        throw new $exceptionClass("Can't find getter method " . implode('() or ', $possibleGetterMethods) . "() for attribute \"{$attributeName}\" in " . get_class($this));
     }
 
     /**

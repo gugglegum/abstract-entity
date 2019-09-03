@@ -36,6 +36,11 @@ class BadModel extends AbstractEntity
     private $topicId;
 
     /**
+     * @var bool
+     */
+    private $isProduction = false;
+
+    /**
      * @return int|null
      */
     public function getUserId()

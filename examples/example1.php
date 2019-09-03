@@ -1,5 +1,7 @@
 <?php
 
+use gugglegum\AbstractEntity\tests\models\User;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /*
@@ -9,9 +11,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
  * print its contents exported to array.
  */
 
-$user = new \gugglegum\AbstractEntity\tests\models\User([
+$user = new User([
     'name' => 'John',
     'email' => 'john@example.com',
+    'isAdmin' => false,
     'disabled' => true,
 ]);
 

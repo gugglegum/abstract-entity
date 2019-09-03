@@ -16,14 +16,19 @@ use gugglegum\AbstractEntity\AbstractEntity;
 class User extends AbstractEntity
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $email;
+
+    /**
+     * @var bool
+     */
+    private $isAdmin = false;
 
     /**
      * @var bool
@@ -68,6 +73,24 @@ class User extends AbstractEntity
     public function setEmail(string $email): self
     {
         $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param bool $isAdmin
+     * @return self
+     */
+    public function setIsAdmin(bool $isAdmin): self
+    {
+        $this->isAdmin = $isAdmin;
         return $this;
     }
 

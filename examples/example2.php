@@ -1,5 +1,7 @@
 <?php
 
+use gugglegum\AbstractEntity\tests\models\Post;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /*
@@ -9,7 +11,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
  * by set attribute and by setter methods.
  */
 
-$post = new \gugglegum\AbstractEntity\tests\models\Post();
+$post = new Post();
 
 $post->setFromArray([
     'userId' => 1,

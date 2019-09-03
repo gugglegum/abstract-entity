@@ -59,41 +59,64 @@ class User extends AbstractEntity
     /**
      * @var bool
      */
+    private $isAdmin = false;
+
+    /**
+     * @var bool
+     */
     private $disabled = false;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
-     * @return User
+     * @param string|null $name
+     * @return self
      */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
     /**
-     * @param string $email
-     * @return User
+     * @param string|null $email
+     * @return self
      */
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param bool $isAdmin
+     * @return User
+     */
+    public function setIsAdmin(bool $isAdmin): self
+    {
+        $this->isAdmin = $isAdmin;
         return $this;
     }
 
@@ -107,7 +130,7 @@ class User extends AbstractEntity
 
     /**
      * @param bool $disabled
-     * @return User
+     * @return self
      */
     public function setDisabled(bool $disabled): self
     {
@@ -126,13 +149,13 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/User.php';
 
 $user = User::fromArray([
-    'name' => 'John Smith',
-    'email' => 'john.smith@example.com',
+    'name' => 'John',
+    'email' => 'john@example.com',
+    'isAdmin' => false,
     'disabled' => true,
 ]);
 
 var_dump($user->toArray());
-
 ```
 
 If you would like to use your own exception class in your models, the best solution is to define it in the 

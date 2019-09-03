@@ -27,8 +27,20 @@ class BadModelTest extends TestCase
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Can\'t find getter method getMessageId() or isMessageId() for attribute "messageId" in ' . get_class($model));
-
         $model->getAttribute('messageId');
+    }
+
+    /**
+     * The `BadModel` doesn't contains getter for `isProduction` attribute. So attempt to get this attribute will raise
+     * an exception.
+     */
+    public function testMissingGetter2()
+    {
+        $model = new BadModel();
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Can\'t find getter method getIsProduction() or isIsProduction() or isProduction() for attribute "isProduction" in ' . get_class($model));
+        $model->getAttribute('isProduction');
     }
 
     /**

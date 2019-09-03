@@ -33,16 +33,19 @@ class AbstractEntityTest extends TestCase
         $this->assertNull($user->getName());
         $this->assertNull($user->getEmail());
         $this->assertFalse($user->isDisabled());
+        $this->assertFalse($user->isAdmin());
 
         /*
          * Creating a user model with partially defined attributes.
          */
         $user = new User([
             'name' => 'John',
+            'isAdmin' => true,
             'disabled' => true,
         ]);
         $this->assertEquals('John', $user->getName());
         $this->assertNull($user->getEmail());
+        $this->assertTrue($user->isAdmin());
         $this->assertTrue($user->isDisabled());
     }
 
@@ -79,9 +82,11 @@ class AbstractEntityTest extends TestCase
     {
         $user = User::fromArray([
             'email' => 'john@example.com',
+            'isAdmin' => true,
         ]);
         $this->assertNull($user->getName());
         $this->assertEquals('john@example.com', $user->getEmail());
+        $this->assertTrue($user->isAdmin());
         $this->assertFalse($user->isDisabled());
     }
 
@@ -94,14 +99,17 @@ class AbstractEntityTest extends TestCase
         $user = new User([
             'name' => 'John',
             'email' => 'john@example.com',
+            'isAdmin' => true,
             'disabled' => true,
         ]);
         $user->setFromArray([
             'email' => 'john.doe@example.com',
+            'isAdmin' => false,
             'disabled' => false,
         ]);
         $this->assertEquals('John', $user->getName());
         $this->assertEquals('john.doe@example.com', $user->getEmail());
+        $this->assertFalse($user->isAdmin());
         $this->assertFalse($user->isDisabled());
     }
 
@@ -115,9 +123,12 @@ class AbstractEntityTest extends TestCase
         new User([
             'name' => 'John',
             'email1' => 'john@example.com',
+            'isAdmin' => true,
             'disabled' => true,
         ]);
     }
+
+//    public function test
 
     /**
      * The `getAttributeNames()` method returns list of attributes. By default this method returns a list of all
@@ -129,6 +140,7 @@ class AbstractEntityTest extends TestCase
         $expectedUserAttributeNames = [
             'name',
             'email',
+            'isAdmin',
             'disabled',
         ];
 
@@ -166,6 +178,7 @@ class AbstractEntityTest extends TestCase
         $existingUserAttributes = [
             'name',
             'email',
+            'isAdmin',
             'disabled',
         ];
 
@@ -220,6 +233,7 @@ class AbstractEntityTest extends TestCase
         $this->assertEquals('John', $user->getAttribute('name'));
         $this->assertNull($user->getAttribute('email'));
         $this->assertTrue($user->getAttribute('disabled'));
+        $this->assertFalse($user->getAttribute('isAdmin'));
     }
 
     /**
@@ -230,9 +244,11 @@ class AbstractEntityTest extends TestCase
         $user = new User([
             'name' => 'John',
             'email' => 'john@example.com',
+            'isAdmin' => true,
             'disabled' => true,
         ]);
         $user->setAttribute('email', 'john.doe@example.com');
+        $user->setAttribute('isAdmin', false);
         $user->setAttribute('disabled', false);
 
         $this->assertEquals('John', $user->getName());
@@ -277,6 +293,7 @@ class AbstractEntityTest extends TestCase
         $data = [
             'name' => 'John',
             'email' => 'john@example.com',
+            'isAdmin' => false,
             'disabled' => true,
         ];
 
@@ -293,6 +310,7 @@ class AbstractEntityTest extends TestCase
         $this->assertEquals([
             'name',
             'email',
+            'isAdmin',
             'disabled',
         ], $user->getAttributeNames());
 

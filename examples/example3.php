@@ -1,5 +1,10 @@
 <?php
 
+use gugglegum\AbstractEntity\Exception;
+use gugglegum\AbstractEntity\tests\CustomException;
+use gugglegum\AbstractEntity\tests\models\CustomPost;
+use gugglegum\AbstractEntity\tests\models\CustomUser;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /*
@@ -15,17 +20,17 @@ require_once __DIR__ . '/../vendor/autoload.php';
  */
 
 try {
-    $user = new \gugglegum\AbstractEntity\tests\models\CustomUser([
+    $user = new CustomUser([
         'name' => 'John',
         'email' => 'john@example.com',
         'disabled' => true,
         '@#$^%@#&$&' => 'some unknown attribute',
     ]);
-} catch (\gugglegum\AbstractEntity\tests\CustomException $e) {
+} catch (CustomException $e) {
     echo "Failed to instantiate model of CustomUser class: {$e->getMessage()}\n";
 }
 
-$post = new \gugglegum\AbstractEntity\tests\models\CustomPost();
+$post = new CustomPost();
 
 $post->setFromArray([
     'userId' => 1,
@@ -36,7 +41,7 @@ $post->setLabels(['test', 'example']);
 
 try {
     $post->getAttribute('!@%@#^#$^&');
-} catch (\gugglegum\AbstractEntity\Exception $e) {
+} catch (Exception $e) {
     echo "Operation failed: {$e->getMessage()}\n";
 }
 

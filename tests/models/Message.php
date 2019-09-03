@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace gugglegum\AbstractEntity\tests\models;
 
+use DateTime;
 use gugglegum\AbstractEntity\AbstractEntity;
 
 /**
@@ -16,7 +17,7 @@ use gugglegum\AbstractEntity\AbstractEntity;
 class Message extends AbstractEntity
 {
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $datetime;
 
@@ -31,7 +32,7 @@ class Message extends AbstractEntity
     private $text;
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getDatetime()
     {
@@ -39,10 +40,10 @@ class Message extends AbstractEntity
     }
 
     /**
-     * @param \DateTime $datetime
+     * @param DateTime $datetime
      * @return self
      */
-    public function setDatetime(\DateTime $datetime): self
+    public function setDatetime(DateTime $datetime): self
     {
         $this->datetime = $datetime;
         return $this;
