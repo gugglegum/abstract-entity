@@ -2,7 +2,9 @@
 
 namespace gugglegum\AbstractEntity;
 
-class Exception extends \Exception
+use RuntimeException;
+
+class Exception extends RuntimeException
 {
 
 }
