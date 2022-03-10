@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace gugglegum\AbstractEntity\tests\models;
+namespace gugglegum\AbstractEntity\tests\entities;
 
 use DateTime;
 use gugglegum\AbstractEntity\AbstractEntity;
@@ -10,31 +10,29 @@ use gugglegum\AbstractEntity\AbstractEntity;
 /**
  * Message
  *
- * A base class for Post and CustomPost. Used mainly to test correct work with inherited models.
- *
- * @package gugglegum\AbstractEntity\tests\models
+ * A base class for Post and CustomPost. Used mainly to test correct work with inherited entities.
  */
 class Message extends AbstractEntity
 {
     /**
      * @var DateTime
      */
-    private $datetime;
+    private DateTime $datetime;
 
     /**
      * @var int
      */
-    private $userId;
+    private int $userId;
 
     /**
      * @var string
      */
-    private $text;
+    private string $text;
 
     /**
-     * @return DateTime|null
+     * @return DateTime
      */
-    public function getDatetime()
+    public function getDatetime(): DateTime
     {
         return $this->datetime;
     }
@@ -50,9 +48,9 @@ class Message extends AbstractEntity
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getUserId()
+    public function getUserId(): int
     {
         return $this->userId;
     }
@@ -68,9 +66,9 @@ class Message extends AbstractEntity
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }

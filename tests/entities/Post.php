@@ -2,31 +2,25 @@
 
 declare(strict_types=1);
 
-namespace gugglegum\AbstractEntity\tests\models;
+namespace gugglegum\AbstractEntity\tests\entities;
 
 /**
  * Post
  *
- * A simple model for post in a blog. Just an example in tests.
- *
- * @package gugglegum\AbstractEntity\tests\models
+ * A simple entity for post in a blog. Just an example in tests.
  */
 class Post extends Message
 {
-    /**
-     * @var string
-     */
-    private $title;
+    /** @var string */
+    private string $title;
+
+    /** @var string[] */
+    private array $labels = [];
 
     /**
-     * @var string[]
+     * @return string
      */
-    private $labels = [];
-
-    /**
-     * @return string|null
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }

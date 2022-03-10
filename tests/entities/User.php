@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-namespace gugglegum\AbstractEntity\tests\models;
+namespace gugglegum\AbstractEntity\tests\entities;
 
 use gugglegum\AbstractEntity\AbstractEntity;
 
 /**
  * User
  *
- * A simple model for user in some site. Just an example in tests.
- *
- * @package gugglegum\AbstractEntity\tests\models
+ * A simple entity for user in some site. Just an example in tests.
  */
 class User extends AbstractEntity
 {
@@ -43,7 +41,7 @@ class User extends AbstractEntity
     /**
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -61,7 +59,7 @@ class User extends AbstractEntity
     /**
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -115,7 +113,7 @@ class User extends AbstractEntity
     /**
      * @return mixed
      */
-    public static function getSomeStaticProperty()
+    public static function getSomeStaticProperty(): mixed
     {
         return self::$someStaticProperty;
     }
@@ -123,7 +121,7 @@ class User extends AbstractEntity
     /**
      * @param mixed $someStaticProperty
      */
-    public static function setSomeStaticProperty($someStaticProperty)
+    public static function setSomeStaticProperty(mixed $someStaticProperty)
     {
         self::$someStaticProperty = $someStaticProperty;
     }

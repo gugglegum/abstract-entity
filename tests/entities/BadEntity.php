@@ -2,17 +2,15 @@
 
 declare(strict_types=1);
 
-namespace gugglegum\AbstractEntity\tests\models;
+namespace gugglegum\AbstractEntity\tests\entities;
 
 use gugglegum\AbstractEntity\AbstractEntity;
 
 /**
- * Non-well formed model class (missing getter and setter). This class used just to check error handling inside
+ * Non-well formed entity class (missing getter and setter). This class used just to check error handling inside
  * AbstractEntity.
- *
- * @package gugglegum\AbstractEntity\tests\models
  */
-class BadModel extends AbstractEntity
+class BadEntity extends AbstractEntity
 {
     /**
      * This is normal attribute
@@ -43,7 +41,7 @@ class BadModel extends AbstractEntity
     /**
      * @return int|null
      */
-    public function getUserId()
+    public function getUserId(): ?int
     {
         return $this->userId;
     }
@@ -71,7 +69,7 @@ class BadModel extends AbstractEntity
     /**
      * @return int|null
      */
-    public function getTopicId()
+    public function getTopicId(): ?int
     {
         return $this->topicId;
     }

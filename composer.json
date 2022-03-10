@@ -2,7 +2,7 @@
   "name": "gugglegum/abstract-entity",
   "description": "Abstract class for entities (models)",
   "type": "library",
-  "keywords": ["entity", "abstract"],
+  "keywords": ["entity", "abstract", "trait", "attributes", "array", "fromArray", "toArray"],
   "license": "MIT",
   "authors": [
     {
@@ -16,7 +16,7 @@
     }
   },
   "require": {
-    "php": ">=7.0.0"
+    "php": ">=8.0"
   },
   "autoload-dev": {
     "psr-4": {

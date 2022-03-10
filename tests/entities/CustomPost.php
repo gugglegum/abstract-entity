@@ -2,19 +2,17 @@
 
 declare(strict_types=1);
 
-namespace gugglegum\AbstractEntity\tests\models;
+namespace gugglegum\AbstractEntity\tests\entities;
 
 /**
  * Custom Post
  *
  * The same as Post but uses associative array in private field `attributes` to store attribute values. As opposed
  * to the CustomUser class this class doesn't redefine exception class (to create a variety in the tests).
- *
- * @package gugglegum\AbstractEntity\tests\models
  */
 class CustomPost extends Message
 {
-    private $attributes = [
+    private array $attributes = [
         'title' => null,
         'labels' => [],
     ];
@@ -22,7 +20,7 @@ class CustomPost extends Message
     /**
      * @return string|null
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->attributes['title'];
     }
@@ -55,11 +53,25 @@ class CustomPost extends Message
         return $this;
     }
 
+    /**
+     * @return string[]
+     */
     public static function getAttributeNames(): array
     {
-        return array_merge(Message::getAttributeNames(), [
+        return array_merge((parent::class)::getAttributeNames(), [
             'title',
             'labels',
         ]);
+    }
+
+    /**
+     * Check is attribute initialized
+     *
+     * @param string $key
+     * @return bool
+     */
+    public function issetAttribute(string $key): bool
+    {
+        return isset($this->attributes[$key]) || parent::issetAttribute($key);
     }
 }

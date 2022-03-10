@@ -8,8 +8,6 @@ use Exception;
 
 /**
  * Alternative custom exception class
- *
- * @package gugglegum\AbstractEntity\tests
  */
 class CustomException extends Exception
 {

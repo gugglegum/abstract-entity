@@ -2,42 +2,47 @@
 
 declare(strict_types=1);
 
-namespace gugglegum\AbstractEntity\tests\models;
+namespace gugglegum\AbstractEntity\tests\entities;
 
 use gugglegum\AbstractEntity\AbstractEntity;
+use gugglegum\AbstractEntity\ArrayableInterface;
+use gugglegum\AbstractEntity\EntityInterface;
+use gugglegum\AbstractEntity\EntityTrait;
+use gugglegum\AbstractEntity\GettersAndSettersTrait;
 use gugglegum\AbstractEntity\tests\CustomException;
 
 /**
  * Custom User
  *
- * The same as User but uses associative array in private field `attributes` to store attribute values. Additionally
+ * The same as User but uses associative array in private field `attributes` to store attribute values. Additionally,
  * it redefines exception class to CustomException.
- *
- * @package gugglegum\AbstractEntity\tests\models
  */
-class CustomUser extends AbstractEntity
+class CustomUser implements EntityInterface
 {
-    private $attributes = [
+    use EntityTrait, GettersAndSettersTrait;
+
+    private array $attributes = [
         'name' => null,
         'email' => null,
+        'isAdmin' => false,
         'disabled' => false,
     ];
 
     /**
-     * Constructor allows to initialize attribute values
+     * Constructor allows initializing attribute values
      *
      * @param array $data           Associative array with [attribute => value] pairs
      */
     public function __construct(array $data = [])
     {
         $this->__setExceptionClass(CustomException::class);
-        parent::__construct($data);
+        $this->setFromArray($data);
     }
 
     /**
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->attributes['name'];
     }
@@ -55,7 +60,7 @@ class CustomUser extends AbstractEntity
     /**
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->attributes['email'];
     }
@@ -67,6 +72,24 @@ class CustomUser extends AbstractEntity
     public function setEmail(string $email): self
     {
         $this->attributes['email'] = $email;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->attributes['isAdmin'];
+    }
+
+    /**
+     * @param bool $isAdmin
+     * @return CustomUser
+     */
+    public function setIsAdmin(bool $isAdmin): self
+    {
+        $this->attributes['isAdmin'] = $isAdmin;
         return $this;
     }
 
@@ -93,6 +116,18 @@ class CustomUser extends AbstractEntity
      */
     public static function getAttributeNames(): array
     {
-        return ['name', 'email', 'disabled'];
+        return ['name', 'email', 'isAdmin', 'disabled'];
+    }
+
+
+    /**
+     * Check is attribute initialized
+     *
+     * @param string $key
+     * @return bool
+     */
+    public function issetAttribute(string $key): bool
+    {
+        return isset($this->attributes[$key]);
     }
 }

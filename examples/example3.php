@@ -1,21 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 use gugglegum\AbstractEntity\Exception;
 use gugglegum\AbstractEntity\tests\CustomException;
-use gugglegum\AbstractEntity\tests\models\CustomPost;
-use gugglegum\AbstractEntity\tests\models\CustomUser;
+use gugglegum\AbstractEntity\tests\entities\CustomPost;
+use gugglegum\AbstractEntity\tests\entities\CustomUser;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /*
  * Example 3
  *
- * Attempt to create CustomUser model instance initializing it by associative array. One of array items contains
- * key that non exists in CustomUser as attribute. This produces CustomException because CustomUser model defines
+ * Attempt to create CustomUser entity instance initializing it by associative array. One of array items contains
+ * key that non exists in CustomUser as attribute. This produces CustomException because CustomUser entity defines
  * usage of CustomException in its constructor. We catch this exception by try..catch construction.
  *
- * Additionally we instantiating CustomPost model instance. Initializing some values and then we attempt to get
- * unknown attribute. This produces default Exception because CustomPost (unlike CustomUser) doesn't redefines
+ * Additionally we're instantiating CustomPost entity instance. Initializing some values, and then we attempt to get
+ * unknown attribute. These produces default Exception because CustomPost (unlike CustomUser) doesn't redefines
  * exception class. We catch it too.
  */
 
@@ -27,7 +29,7 @@ try {
         '@#$^%@#&$&' => 'some unknown attribute',
     ]);
 } catch (CustomException $e) {
-    echo "Failed to instantiate model of CustomUser class: {$e->getMessage()}\n";
+    echo "Failed to instantiate entity of CustomUser class: {$e->getMessage()}\n";
 }
 
 $post = new CustomPost();
